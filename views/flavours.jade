@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    table.table.table-striped.table-hover.table-bordered
+        thead
+            tr
+                th #
+                th.flavour-name-col Coffee name
+                th.ingredients-col Price
+
+        tbody
+            each flavor, i in flavors
+                tr
+                    td #{i}
+                    td.message-col #{flavor.name}
+                    td #{flavor.price}
