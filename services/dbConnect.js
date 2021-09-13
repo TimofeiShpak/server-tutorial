@@ -10,7 +10,7 @@ const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_P
 // if project has been deployed, connect with the host's DATABASE_URL
 // else connect with the local DATABASE_URL
 const pool = new pg.Pool({
-  connectionString: isProduction ? process.env.DATABASE_URL : connectionString,
+  connectionString: isProduction ? process.env.DB_URL : connectionString,
   ssl: isProduction,
 });
 
