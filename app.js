@@ -19,17 +19,17 @@ const objectId = require("mongodb").ObjectId;
 const app = express();
 const jsonParser = express.json();
  
-const mongoClient = new MongoClient("mongodb://localhost:27017/");
+const mongoClient = new MongoClient("mongodb+srv://admin:Hora1234@cluster0.ouwqb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
  
 let dbClient;
  
 app.use(express.static(__dirname + "/public"));
  
 mongoClient.connect(function(err, client){
-    if(err) return console.log(err);
+    if(err) return console.log('err', err);
     dbClient = client;
     app.locals.collection = client.db("usersdb").collection("users");
-    app.listen(3001, function(){
+    app.listen(process.env.DB_PORT || 3001, function(){
         console.log("Сервер ожидает подключения...");
     });
 });
@@ -100,10 +100,10 @@ app.put("/api/users", jsonParser, function(req, res){
     });
 });
  
-// // прослушиваем прерывание работы программы (ctrl-c)
-// process.on("SIGINT", () => {
-//     dbClient.close();
-//     process.exit();
-// });
+// прослушиваем прерывание работы программы (ctrl-c)
+process.on("SIGINT", () => {
+    dbClient.close();
+    process.exit();
+});
 
 module.exports = app;
